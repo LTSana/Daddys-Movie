@@ -142,10 +142,8 @@ ASGI_APPLICATION = 'DaddysMovie.asgi.application'
 # Channels
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
+        #'BACKEND': 'channels_redis.core.RedisChannelLayer', # USE IN PRODUCTION
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
 }
 
