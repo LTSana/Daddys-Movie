@@ -1,1 +1,1 @@
-web gunicorn DaddysMovie.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 --log-file -
+web uvicorn DaddysMovie.asgi:application
