@@ -1,1 +1,4 @@
-web: gunicorn DaddysMovie.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT
+release: python manage.py migrate
+web: gunicorn DaddysMovie.wsgi --log-file -
+web2: daphne DaddysMovie.asgi:application --port $PORT --bind 0.0.0.0
+worker: python manage.py runworker channel_layer
