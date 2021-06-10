@@ -1,2 +1,2 @@
-release: python manage.py migrate
-web: uvicorn DaddysMovie.asgi:application --host 0.0.0.0 --port $PORT
+web: daphne DaddysMovie.asgi:channel_layer --port $PORT --bind 0.0.0.0 -v2
+worker: python manage.py runworker -v2
