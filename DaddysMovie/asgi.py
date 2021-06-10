@@ -22,6 +22,9 @@ from channels.security.websocket import AllowedHostsOriginValidator
 
 import movie.routing
 
+from channels.layers import get_channel_layer
+channel_layer = get_channel_layer()
+
 application = ProtocolTypeRouter({
   "http": get_asgi_application(),
   "websocket": AllowedHostsOriginValidator(
