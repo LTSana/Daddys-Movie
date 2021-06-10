@@ -19,12 +19,12 @@ from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('', include('pages.urls')),
-    path('/zeus/admin/', admin.site.urls),
+    path('zeus/admin/', admin.site.urls),
     path('core/', include('core.urls')),
     path('movie/', include('movie.urls')),
-    path('token-auth/', jwt_views.TokenObtainPairView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
-    path('token-refresh/', jwt_views.TokenRefreshView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
-    path('token-verify/', jwt_views.TokenVerifyView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
+    #path('token-auth/', jwt_views.TokenObtainPairView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
+    #path('token-refresh/', jwt_views.TokenRefreshView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
+    #path('token-verify/', jwt_views.TokenVerifyView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
 ]
 
 
