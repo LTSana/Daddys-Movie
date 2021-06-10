@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 """
 
 import os
+import channels.asgi
 
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
@@ -19,6 +20,7 @@ from channels.security.websocket import AllowedHostsOriginValidator
 import movie.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DaddysMovie.settings')
+channel_layer = channels.asgi.get_channel_layer()
 
 application = get_asgi_application()
 
