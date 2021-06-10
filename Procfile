@@ -1,1 +1,1 @@
-web: uvicorn DaddysMovie.asgi:application --host 0.0.0.0 --port $PORT
+web: gunicorn DaddysMovie.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT
