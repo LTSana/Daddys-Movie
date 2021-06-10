@@ -1,1 +1,1 @@
-web: gunicorn DaddysMovie.wsgi --log-file -
+web: uvicorn DaddysMovie.asgi:application --host 0.0.0.0 --port $PORT
