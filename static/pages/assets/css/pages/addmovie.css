@@ -1,0 +1,48 @@
+/* Hero 1 */
+
+.hero-1-col-1-movies {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.hero-1-row-1-movies {
+  background: rgba(232,74,95,0.3);
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+}
+
+.form-option-btn {
+  background: #000000;
+  border-color: #e84a5f;
+  box-shadow: none;
+  margin-bottom: 10px;
+}
+
+.form-option-btn:hover {
+  background: #262626;
+  border-color: #e84a5f;
+}
+
+.form-option-btn:focus, .form-option-btn:active {
+  background: #ffffff;
+  border-color: #e84a5f;
+  color: #000000;
+  box-shadow: none;
+}
+
+.form-option-btn:not(:disabled):not(.disabled):active:focus {
+  background: #858585;
+  border-color: #e84a5f;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+#add-movie-form > .form-group > .btn {
+  background: rgb(0,0,0);
+  border-color: rgb(232,74,95);
+}
+

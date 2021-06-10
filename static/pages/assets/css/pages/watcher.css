@@ -1,0 +1,105 @@
+/* Hero 1 */
+
+#hero-1 {
+}
+
+#send-message-btn {
+  padding-right: 25px;
+  padding-left: 25px;
+  background: rgb(0,0,0);
+  border-color: rgb(232,74,95);
+}
+
+.hero-1-movie-col {
+  height: 87vh;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+#movie-player {
+  border-style: none;
+}
+
+#chat-column-holder {
+  max-height: 80vh;
+}
+
+.hero-1-message-holder {
+  border-top-color: rgb(20,20,20);
+  border-left-style: solid;
+  border-left-color: rgb(20,20,20);
+  overflow-y: scroll;
+  max-height: 70vh;
+  height: 70vh;
+  background: rgba(232,74,95,0.05);
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.receiver-message {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.receiver-message > p {
+  background: #2d2d2d;
+  padding-top: 5px;
+  margin-left: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  color: rgb(255,255,255);
+}
+
+.receiver-message > p > .username-span {
+  color: rgb(232,74,95);
+  font-size: 12px;
+}
+
+.receiver-message > p > .message-span {
+  color: rgb(255,255,255);
+  font-size: 15px;
+}
+
+.receiver-message > p > .date-span {
+  color: rgb(113,113,113);
+  font-size: 10px;
+}
+
+.sender-message {
+  padding-right: 0;
+}
+
+.sender-message > p {
+  background: #e84a5f;
+  padding-top: 5px;
+  margin-right: 11px;
+  margin-left: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+
+.sender-message > p > .username-span {
+  color: rgb(255,255,255);
+  font-size: 12px;
+}
+
+.sender-message > p > .message-span {
+  color: rgb(0,0,0);
+  font-size: 15px;
+}
+
+.sender-message > p > .date-span {
+  color: rgb(255,255,255);
+  font-size: 10px;
+}
+
+#message-text-input {
+  border-radius: 10px;
+}
+

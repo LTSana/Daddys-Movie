@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Daddys Movies</title>
+    <meta name="twitter:description" content="This is private movie streaming platform. You need to be invited to have access to the platform.
+If you wish to use the code for this project, you can get it at my GitHub at https://ltsana.github.io/">
+    <meta name="twitter:title" content="Daddys Movies">
+    <meta name="description" content="This is private movie streaming platform. You need to be invited to have access to the platform.
+If you wish to use the code for this project, you can get it at my GitHub at https://ltsana.github.io/">
+    <meta name="twitter:card" content="summary">
+    {% include 'pages/modules/favicons.html' %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caesar+Dressing">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/custom-alert.css?h=18b095f60c1b3a8e85c79f89105523e3' %}">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/global/custom-alert.css?h=dfadba239303e13a114fe587a07f2978' %}">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/global/Footer-Dark.css?h=4c007a81a3274ccfe89404145043562d' %}">
+    <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/global/Navigation-Clean.css?h=a372820588687869380f8c1b5531b5be' %}">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/global/styles.css?h=2033120ff7789d2b1bb9e971712b9e52' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/pages/addmovie.css?h=ac90f3c082e24c9c0cda937e31915aab' %}">
+</head>
+
+<body>
+    {% include 'pages/modules/navbar.html' %}
+    <div id="main-div">
+        <section id="hero-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col hero-1-col-1-movies">
+                        <div class="row hero-1-col-1-movies-alert">
+                            <div class="col">
+                                <h4 class="text-center">NO MOVIES</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <form id="add-movie-form" action="/movies?action=add" method="post">
+                            <div class="alert alert-info d-none flex-row justify-content-between align-items-center align-content-center" role="alert" id="addmovie-alert"><span class="text-break alert-text"><strong>Alert</strong> text.</span><span class="d-flex flex-row close" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z" fill="currentColor"></path>
+                                    </svg></span></div><span class="sr-only" id="csrf-token-1">{% csrf_token %}</span>
+                            <div class="form-group"><label>Enter the movie Title</label><input class="form-control" type="text" id="movie-title" required="" name="movie-title" placeholder="Enter movie title"></div>
+                            <div class="form-group d-flex flex-column justify-content-start align-items-stretch"><label>Select the source of the movie</label>
+                                <div id="direct-link-div-option"><label>Enter the direct link to the movie</label><input class="form-control" type="text" id="direct-link" required="" name="google-drive-id" placeholder="Enter the direct link to the movie"></div>
+                            </div>
+                            <div class="form-group d-flex flex-column justify-content-start align-items-start"><label>Select a movie cover for your movie</label><input class="form-control-file sr-only" type="file" id="movie-cover-input" accept="image/*" required="" name="movie-cover"><button class="btn btn-primary" id="select-movie-cover-btn" type="button">Select a cover picture</button>
+                                <p>The file name:&nbsp;<span id="movie-cover-name-label">No file here yet.</span></p>
+                            </div>
+                            <div class="form-group"><button class="btn btn-primary" id="addmovie-form-btn" type="submit">Upload Movie Information</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    {% include 'pages/modules/footer.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'pages/assets/js/bs-init.js?h=47e20ca828ec68956ae4e635c025ada7' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="{% static 'pages/assets/js/custom-alert.js?h=956c946510e8423abdcf7495403bcfd1' %}"></script>
+    <script src="{% static 'pages/assets/js/global/ghost.js?h=40857c68a7488a11838db68fb6c5c45c' %}"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfitR8bAAAAAE8MmJwwzMtTfM-dBdbZQsr6iC4f"></script>
+    <script src="{% static 'pages/assets/js/global/reconnecting-websocket.js?h=4ef9dd81c9e8157a1702623078c7ece1' %}"></script>
+    <script src="{% static 'pages/assets/js/pages/addmovie.js?h=64859a48bc3a24497743b19f875ba117' %}"></script>
+</body>
+
+</html>

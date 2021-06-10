@@ -1,0 +1,80 @@
+body {
+}
+
+/* Hero 1 */
+
+#search-movie > .form-group {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+#search-movie > .form-group > .btn {
+  margin-left: -75px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  height: 36.5px;
+  color: rgb(230,74,95);
+  background: #000000;
+  border-style: solid;
+  border-color: rgb(230,74,95);
+}
+
+@media (min-width: 576px) {
+  #search-input {
+    width: 390px;
+    padding-right: 70px;
+  }
+}
+
+@media (max-width: 575px) {
+  #search-input {
+    width: 254px;
+    padding-right: 70px;
+  }
+}
+
+/* Hero 2 */
+
+#hero-2 {
+  margin-top: 30px;
+  margin-bottom: 80px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.hero-2-movie-col {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.hero-2-movie-col:hover {
+  /*background: linear-gradient(179deg, rgba(232,74,95,0.15), rgba(232,74,95,0.2) 100%);*/
+}
+
+.hero-2-movie-col-link-div {
+  background: rgba(232,74,95,0.15);
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.hero-2-movie-col-link-div:hover {
+  background: linear-gradient(179deg, rgba(232,74,95,0.15), rgba(232,74,95,0.2) 100%);
+  border-radius: 10px;
+}
+
+.hero-2-movie-col > a {
+  text-decoration: none;
+  background: rgba(232, 74, 95, 0.15);
+}
+
+.hero-2-movie-col > a > div > div > div > h4 {
+  color: rgb(232,74,95);
+  font-weight: bold;
+}
+

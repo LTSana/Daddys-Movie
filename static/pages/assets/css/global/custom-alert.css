@@ -1,0 +1,21 @@
+.alert {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 9px;
+}
+
+.alert {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 9px;
+  background: rgb(212, 237, 218);
+}
+
+.alert {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 9px;
+  background: rgb(232,74,95);
+  color: rgb(0,0,0);
+}
+
