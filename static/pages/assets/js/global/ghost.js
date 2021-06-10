@@ -21,7 +21,7 @@ const CSRFTOKEN = getCookie("csrftoken");
 // The backend that we are going to be connecting our APIs
 const BACKEND_HOST = ``;
 let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-const WEBSCKET_HOST = `${ws_scheme}://127.0.0.1:8000`
+const WEBSCKET_HOST = `${ws_scheme}://${window.location.host}`
 const TOKEN = JSON.parse(localStorage.getItem("token"));
 /* if (localStorage.getItem("token") && localStorage.getItem("token") != "undefined") {
 	TOKEN = JSON.parse(localStorage.getItem("token"));
