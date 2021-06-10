@@ -34,7 +34,7 @@ else:
     SECRET_KEY = """_5DC0o,D~buG1@N`=6?{xI:%y#5syy=m!Tfno?o*~2}@61|F&Aj}3IG?+[u@Nxy&=uI^W>c{QUko'\|lpxa$_dBYSC4%WN09'gj("""
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = True if os.getenv('DEBUG') == "True" else False
 
 ALLOWED_HOSTS = [
     '192.168.100.2', 
