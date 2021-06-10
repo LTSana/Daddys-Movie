@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
 	path("create", views.createSession, name="movie_create_session"),
 	path("session", views.openSession, name="movie_open_session"),
+	path("sessionStatus", views.sessionStatus, name="movie_sessionStatus"),
 ]

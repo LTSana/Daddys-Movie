@@ -68,3 +68,37 @@ class MovieChatForm(forms.Form):
                 pass
 
         return cleaned_data
+
+
+class MovieSessionStatusForm(forms.Form):
+    """ Used to validate the for UUID """
+
+    sessionID = forms.UUIDField(
+        required=True,
+        help_text="Session ID is UUID and is required to identify and join a Session.",
+        error_messages={
+            "required": "Movie Session ID is required! Please provide one.",
+            "invalid": "Movie Session ID is invalid! Please provide a UUID.",
+        }
+    )
+
+    playStatus = forms.CharField(
+        required=True,
+        max_length=128,
+        min_length=1,
+        error_messages={
+            "required": "play Status is required! Please enter a play Status to send.",
+            "min_length": "play Status is too short!",
+            "max_length": "play Status is too long! Please shorten your play Status",
+            "invalid": "play Status is invalid! Please make sure your play Status does not contain any unwanted symbols.",
+        }
+    )
+
+    currentTime = forms.FloatField(
+        required=True,
+        error_messages={
+            "invalid": "Current Time is invalid! Please make sure it is an float.",
+            "min_value": "Current Time is invalid! Please make sure it is a positive float",
+            "required": "Current Time is required! Please provide one",
+        }
+    )

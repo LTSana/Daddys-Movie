@@ -10,3 +10,4 @@ class MovieSessionModel(models.Model):
 
     sessionID = models.UUIDField(unique=True, null=False, default=uuid.uuid4, editable=False)
     movie = models.ForeignKey(MovieModel, on_delete=models.CASCADE, related_name="movie_session")
+    sessionStatus = models.JSONField(null=True, blank=True, default=dict)

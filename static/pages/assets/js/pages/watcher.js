@@ -46,7 +46,7 @@ const websocketChat = new ReconnectingWebSocket(
 );
 
 // Waiting set milliseconds to reconnect
-websocketChat.timeoutInterval = 5000;
+websocketChat.timeoutInterval = 50000000000;
 
 // Do actions after the websocket has connected and is open
 websocketChat.onopen = (e) => {
@@ -125,7 +125,7 @@ websocketChat.onmessage = (e) => {
 			console.log(data);
 
 			// Check what action the movie is in
-			if (data.message.username != CURRENT_USER) {
+			/* if (data.message.username != CURRENT_USER) {
 
 				if (data.message.action === "pause") {
 					movieControls.pause();
@@ -137,7 +137,7 @@ websocketChat.onmessage = (e) => {
 						movieControls.currentTime = data.message.currentTime;
 					}
 				}
-			}
+			} */
 
 			incomingCommand = data.message.username;
 		}
@@ -168,7 +168,7 @@ websocketChat.onmessage = (e) => {
 } */
 
 // Used when the video is paused
-movieControls.onpause = () => {
+/* movieControls.onpause = () => {
 	console.log("HEY, I'M PAUSED!  SENDING ACTION");
 	websocketChat.send(JSON.stringify({
 		"action": "pause", // Send the action
@@ -185,7 +185,7 @@ movieControls.onplay = () => {
 		"currentTime": movieControls.currentTime,
 		"command": "video_controls",
 	}));
-}
+} */
 
 // Display the messages
 createMessage = (data) => {
@@ -334,3 +334,84 @@ receivedAction = (data) => {
 websocketChat.onclose = (e) => {
 	console.error("Movie socket closed unexpectedly");
 };
+
+movieControls.onpause = () => {
+	fetch(`${BACKEND_HOST}/movie/sessionStatus`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `${TOKEN.type} ${TOKEN.access}`,
+			"X-CSRFToken": CSRFTOKEN,
+		},
+		body: JSON.stringify({
+			"sessionID": sessionID,
+			"playStatus": "pause",
+			"currentTime": movieControls.currentTime,
+		})
+	}).then(res => res.json()).then(json => {
+		console.log(json);
+	});
+}
+
+movieControls.onplay = () => {
+	fetch(`${BACKEND_HOST}/movie/sessionStatus`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			//"Authorization": `${TOKEN.type} ${TOKEN.access}`,
+			"X-CSRFToken": CSRFTOKEN,
+		},
+		body: JSON.stringify({
+			"sessionID": sessionID,
+			"playStatus": "play",
+			"currentTime": movieControls.currentTime,
+		})
+	}).then(res => res.json()).then(json => {
+		console.log(json);
+	});
+}
+
+readyMovieState = true;
+setInterval(() => {
+	if (readyMovieState) {
+
+		readyMovieState = false;
+
+		fetch(`${BACKEND_HOST}/movie/sessionStatus?sessionID=${sessionID}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				//"Authorization": `${TOKEN.type} ${TOKEN.access}`,
+				"X-CSRFToken": CSRFTOKEN,
+			},
+		}).then(res => res.json()).then(json => {
+			readyMovieState = true;
+			if (json.status === 200) {
+				
+				if (json.sessionStatus.username != CURRENT_USER) {
+	
+					let UserNotInList = false;
+					for (let i = 0; i < json.sessionStatus.doneList.length; i++) {
+						if (json.sessionStatus.doneList[i] != CURRENT_USER) {
+							UserNotInList = true;
+						}
+					}
+					console.log(`INT: ${movieControls.paused}`);
+					console.log(`INT 2: ${movieControls.playing}`);
+					console.log(json.sessionStatus.playStatus)
+					if (json.sessionStatus.playStatus === "pause" && !movieControls.paused) {
+						movieControls.pause();
+						movieControls.currentTime = json.sessionStatus.currentTime; 
+						console.log("SERVER PAUSE VIDEO");
+					} else if (json.sessionStatus.playStatus === "play" && movieControls.paused) {
+						movieControls.play();
+						movieControls.currentTime = json.sessionStatus.currentTime; 
+						console.log("SERVER PLAY VIDEO");
+					}
+				}
+			} else {
+				console.log(json);
+			}
+		});
+	}
+}, 200);
