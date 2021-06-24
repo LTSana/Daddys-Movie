@@ -21,7 +21,7 @@ const CSRFTOKEN = getCookie("csrftoken");
 // The backend that we are going to be connecting our APIs
 const BACKEND_HOST = ``;
 let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-const WEBSCKET_HOST = `${ws_scheme}://${window.location.host}`
+const WEBSCKET_HOST = `${ws_scheme}:`;
 const TOKEN = JSON.parse(localStorage.getItem("token"));
 /* if (localStorage.getItem("token") && localStorage.getItem("token") != "undefined") {
 	TOKEN = JSON.parse(localStorage.getItem("token"));
@@ -31,6 +31,7 @@ const TOKEN = JSON.parse(localStorage.getItem("token"));
 
 // User information
 let CURRENT_USER = null;
+let CURRENT_USER_ID = null;
 
 // Check if the user is logged in by verifying the access token
 // If the access token has expired refresh the token
@@ -46,11 +47,11 @@ fetch(`${BACKEND_HOST}/core/currentUser`, {
 	if (json.status === 200) {
 
 		CURRENT_USER = json.data.username;
-		console.log(json);
+		CURRENT_USER_ID = json.data.userID;
 	} else {
 
 		// Attempt to refresh the access token
-		/* fetch(`${BACKEND_HOST}/token-refresh/`, {
+		fetch(`${BACKEND_HOST}/token-refresh/`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -77,7 +78,7 @@ fetch(`${BACKEND_HOST}/core/currentUser`, {
 				localStorage.removeItem("token");
 				TOKEN = {"type": "", "access": "", "refresh": "", "expire": 0};
 			}
-		}); */
+		});
 	}
 });
 

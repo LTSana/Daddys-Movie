@@ -21,10 +21,10 @@ If you wish to use the code for this project, you can get it at my GitHub at htt
     <link rel="stylesheet" href="{% static 'pages/assets/css/global/custom-alert.css?h=dfadba239303e13a114fe587a07f2978' %}">
     <link rel="stylesheet" href="{% static 'pages/assets/css/global/Footer-Dark.css?h=4c007a81a3274ccfe89404145043562d' %}">
     <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
-    <link rel="stylesheet" href="{% static 'pages/assets/css/global/Navigation-Clean.css?h=a372820588687869380f8c1b5531b5be' %}">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/global/Navigation-Clean.css?h=700e53e8522224a54b53d9335c3c773a' %}">
     <link rel="stylesheet" href="{% static 'pages/assets/css/global/styles.css?h=2033120ff7789d2b1bb9e971712b9e52' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link rel="stylesheet" href="{% static 'pages/assets/css/pages/index.css?h=b9a2673854fc4dad014781f6f09639bb' %}">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/pages/index.css?h=0b73521a1b0820ab19f606b4521fcebc' %}">
 </head>
 
 <body>
@@ -34,7 +34,7 @@ If you wish to use the code for this project, you can get it at my GitHub at htt
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="alert d-none alert-info flex-row justify-content-between align-items-center align-content-center" role="alert" id="home-page-alert"><span class="text-break alert-text"><strong>Alert</strong> text.</span><span class="d-flex flex-row close" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none">
+                        <div class="alert alert-info d-none flex-row justify-content-between align-items-center align-content-center" role="alert" id="home-page-alert"><span class="text-break alert-text"><strong>Alert</strong> text.</span><span class="d-flex flex-row close" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none">
                                     <path d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z" fill="currentColor"></path>
                                 </svg></span></div>
                         <form class="form-inline d-flex flex-row justify-content-center align-items-center" id="search-movie" action="/searchMovie" method="get"><span class="sr-only" id="csrf-token">{% csrf_token %}</span>
@@ -47,11 +47,7 @@ If you wish to use the code for this project, you can get it at my GitHub at htt
         </section>
         <section id="hero-2">
             <div class="container-fluid">
-                <div class="row hero-2-col-2-movies">
-                    <div class="col-xl-12 hero-2-col-2-movies-alert">
-                        <h4 class="text-center">NO MOVIES</h4>
-                    </div>
-                </div>
+                <div class="row hero-2-col-2-movies"></div>
             </div>
         </section>
     </div>
@@ -61,10 +57,10 @@ If you wish to use the code for this project, you can get it at my GitHub at htt
     <script src="{% static 'pages/assets/js/bs-init.js?h=47e20ca828ec68956ae4e635c025ada7' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="{% static 'pages/assets/js/custom-alert.js?h=956c946510e8423abdcf7495403bcfd1' %}"></script>
-    <script src="{% static 'pages/assets/js/global/ghost.js?h=40857c68a7488a11838db68fb6c5c45c' %}"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfitR8bAAAAAE8MmJwwzMtTfM-dBdbZQsr6iC4f"></script>
+    <script src="{% static 'pages/assets/js/global/ghost.js?h=9c75be1447734d1299900585a6a1446c' %}"></script>
+    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
     <script src="{% static 'pages/assets/js/global/reconnecting-websocket.js?h=4ef9dd81c9e8157a1702623078c7ece1' %}"></script>
-    <script src="{% static 'pages/assets/js/pages/index.js?h=73d60b69a9d66b8ddc0b741c4dc1cf8c' %}"></script>
+    <script src="{% static 'pages/assets/js/pages/index.js?h=8965f696aaf9517516ff3b49cd4b5de5' %}"></script>
 </body>
 
 </html>

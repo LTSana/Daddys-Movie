@@ -274,3 +274,8 @@ SIMPLE_JWT = {
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
+
+if os.getenv("ENCRYPTION_KEY"):
+    ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY").encode()
+else:
+    ENCRYPTION_KEY = "q44r4l_YOM_uyE2vDZBniRJURSVoMbquEytkyMGKKOA=".encode()

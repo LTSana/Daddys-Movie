@@ -21,10 +21,10 @@ If you wish to use the code for this project, you can get it at my GitHub at htt
     <link rel="stylesheet" href="{% static 'pages/assets/css/global/custom-alert.css?h=dfadba239303e13a114fe587a07f2978' %}">
     <link rel="stylesheet" href="{% static 'pages/assets/css/global/Footer-Dark.css?h=4c007a81a3274ccfe89404145043562d' %}">
     <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
-    <link rel="stylesheet" href="{% static 'pages/assets/css/global/Navigation-Clean.css?h=a372820588687869380f8c1b5531b5be' %}">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/global/Navigation-Clean.css?h=700e53e8522224a54b53d9335c3c773a' %}">
     <link rel="stylesheet" href="{% static 'pages/assets/css/global/styles.css?h=2033120ff7789d2b1bb9e971712b9e52' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link rel="stylesheet" href="{% static 'pages/assets/css/pages/watcher.css?h=00b54b29517f80b53a3f465f243307ad' %}">
+    <link rel="stylesheet" href="{% static 'pages/assets/css/pages/watcher.css?h=54670f6174153ff937421545ab04e195' %}">
 </head>
 
 <body>
@@ -40,17 +40,21 @@ If you wish to use the code for this project, you can get it at my GitHub at htt
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 hero-1-movie-col"><video id="movie-player" width="100%" height="100%" controls="" autoplay="">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 hero-1-movie-col"><video id="movie-player" width="100%" height="100%" controls="">
                             <source type="video/mp4">
                         </video></div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 d-flex flex-column justify-content-around" id="chat-column-holder">
                         <h5>You guys are watching:</h5>
-                        <h5 id="movie-title-holder"></h5>
+                        <h5 id="movie-title-holder">Movie title</h5>
+                        <h6 id="movie-session-holder">SESSION ID:&nbsp;<input type="text" id="sessionID-input" placeholder="{sessionID}" readonly=""></h6>
                         <div class="row d-flex flex-row justify-content-start align-items-start align-content-start flex-wrap hero-1-message-holder"></div>
                         <div class="row">
                             <div class="col">
                                 <form>
-                                    <div class="form-group"><textarea class="form-control" id="message-text-input" name="message" placeholder="Enter message (limit: 2000)" maxlength="2000" required="" rows="4"></textarea></div>
+                                    <div class="alert alert-info d-none flex-row justify-content-between align-items-center align-content-center" role="alert" id="movie-chat-alert"><span class="text-break alert-text"><strong>Alert</strong> text.</span><span class="d-flex flex-row close" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none">
+                                                <path d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z" fill="currentColor"></path>
+                                            </svg></span></div>
+                                    <div class="form-group"><textarea class="form-control" id="message-text-input" name="message" placeholder="Enter message (limit: 2000)" maxlength="2000" rows="4"></textarea></div>
                                     <div class="form-group d-flex flex-column justify-content-start align-items-end"><button class="btn btn-primary" id="send-message-btn" type="button">Send</button></div>
                                 </form>
                             </div>
@@ -66,10 +70,10 @@ If you wish to use the code for this project, you can get it at my GitHub at htt
     <script src="{% static 'pages/assets/js/bs-init.js?h=47e20ca828ec68956ae4e635c025ada7' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="{% static 'pages/assets/js/custom-alert.js?h=956c946510e8423abdcf7495403bcfd1' %}"></script>
-    <script src="{% static 'pages/assets/js/global/ghost.js?h=40857c68a7488a11838db68fb6c5c45c' %}"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfitR8bAAAAAE8MmJwwzMtTfM-dBdbZQsr6iC4f"></script>
+    <script src="{% static 'pages/assets/js/global/ghost.js?h=9c75be1447734d1299900585a6a1446c' %}"></script>
+    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
     <script src="{% static 'pages/assets/js/global/reconnecting-websocket.js?h=4ef9dd81c9e8157a1702623078c7ece1' %}"></script>
-    <script src="{% static 'pages/assets/js/pages/watcher.js?h=196aa8c85abeb4bb713421006393099b' %}"></script>
+    <script src="{% static 'pages/assets/js/pages/watcher.js?h=75381d3b9c5337702a1cdb3617b75a4b' %}"></script>
 </body>
 
 </html>

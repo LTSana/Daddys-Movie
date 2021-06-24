@@ -1,8 +1,5 @@
 /* Hero 1 */
 
-#hero-1 {
-}
-
 #send-message-btn {
   padding-right: 25px;
   padding-left: 25px;
@@ -25,15 +22,18 @@
 }
 
 .hero-1-message-holder {
-  border-top-color: rgb(20,20,20);
-  border-left-style: solid;
-  border-left-color: rgb(20,20,20);
   overflow-y: scroll;
   max-height: 70vh;
   height: 70vh;
   background: rgba(232,74,95,0.05);
   margin-top: 0px;
   margin-bottom: 5px;
+  border-top-color: rgb(20,20,20);
+  border-bottom-style: solid;
+  border-bottom-color: rgb(20,20,20);
+  border-left-style: solid;
+  border-left-color: rgb(20,20,20);
+  border-radius: 5px;
 }
 
 .receiver-message {
@@ -75,7 +75,7 @@
 .sender-message > p {
   background: #e84a5f;
   padding-top: 5px;
-  margin-right: 11px;
+  margin-right: 10px;
   margin-left: 5px;
   margin-top: 10px;
   border-radius: 5px;
@@ -101,5 +101,55 @@
 
 #message-text-input {
   border-radius: 10px;
+  box-shadow: none;
+}
+
+.alert-message > p {
+  background: #303030;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(255,0,0) ;
+}
+
+.alert-message > p > .message-span {
+  color: rgb(255,255,255);
+  font-weight: normal;
+  font-size: 9px;
+}
+
+.alert-message > p > .date-span {
+  color: rgb(255,255,255);
+  font-weight: normal;
+  font-size: 10px;
+}
+
+#movie-session-holder {
+  background: #333333;
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(232,74,95) ;
+}
+
+#sessionID-input, #sessionID-input::placeholder, #sessionID-input:focus {
+  color: rgb(255,0,0);
+  cursor: pointer;
+  background: rgb(34,34,34);
+  border-style: none;
+  width: 100%;
+  border-radius: 2px;
+  border-style: none;
+  box-shadow: none;
+}
+
+#sessionID-input:hover {
+  color: rgb(255,0,0);
+  cursor: pointer;
 }
 

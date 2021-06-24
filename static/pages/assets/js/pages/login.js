@@ -1,5 +1,10 @@
 /* JavaScript for the login page */
 
+// Get the next page to redirect to from the URL params
+const queryString = window.location.search;
+let URLParam = new URLSearchParams(queryString);
+const nextPage = URLParam.get("next"); // Gets the next page to redirect to from the url parameters
+
 // Add an event listener for when the login form is being submitted and POST the request to the backEnd
 document.addEventListener("submit", (e) => {
 
@@ -49,14 +54,12 @@ document.addEventListener("submit", (e) => {
                 // Get and store the authentication token
                 localStorage.setItem("token", JSON.stringify(json.token));
 
-                // Store user data in the browser local storage
-				localStorage.setItem("user", JSON.stringify({
-					"username": json.user.username,
-					"id": json.user.id})
-				);
-
-                // Send the user to the index/home page
-                location.href = "/";
+                // Send the user to the index/home page or to the next page that the user was trying to access
+                if (nextPage) {
+                    location.href = nextPage;
+                } else {
+                    location.href = "/";
+                }
             } else {
                 console.log(json);
                 if (json.message) {
@@ -65,6 +68,8 @@ document.addEventListener("submit", (e) => {
                     ALERT_MESSAGE("#login-alert", "Something wen't wrong while sending request to the server.\nCheck concole logs.")
                 }
             }
+        }).catch( (err) => {
+            console.log(err);
         });
     }
 });

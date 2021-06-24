@@ -22,6 +22,7 @@ urlpatterns = [
     path('zeus/admin/', admin.site.urls),
     path('core/', include('core.urls')),
     path('movie/', include('movie.urls')),
+    path('message/', include('message.urls')),
     #path('token-auth/', jwt_views.TokenObtainPairView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
     #path('token-refresh/', jwt_views.TokenRefreshView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
     #path('token-verify/', jwt_views.TokenVerifyView.as_view()), # WE ARE USING SESSIONS NOW NOT JWT
@@ -31,6 +32,6 @@ urlpatterns = [
 admin.site.site_header = "Daddys Movie. Administration"
 admin.site.site_title = "Daddys Movie. Administration"
 
-""" handler404 = "pages.views.handler404"
+handler404 = "pages.views.handler404"
 handler403 = "pages.views.handler403"
-handler500 = "pages.views.handler500" """
+handler500 = "pages.views.handler500"

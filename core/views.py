@@ -29,7 +29,7 @@ from PIL import Image
 from django.core.files.base import ContentFile
 
 # IMPORT CUSTOM FORMS
-from .form import LoginForm, MovieForm
+from .forms import LoginForm, MovieForm
 
 # IMPORT MODELS
 from .models import MovieModel
