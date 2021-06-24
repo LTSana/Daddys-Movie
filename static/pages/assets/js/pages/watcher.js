@@ -108,6 +108,11 @@ receivedAction = (data) => {
     movieControls.pause();
 }
 
+// TODO (Need to figure out how to solve buffering issues)
+movieControls.onwaiting = () => {
+    console.log("Buffering...")
+}
+
 movieControls.onpause = () => {
     fetch(`${BACKEND_HOST}/movie/sessionStatus`, {
         method: "POST",
@@ -198,12 +203,16 @@ movieControls.onplay = () => {
     });
 }
 
+// Initialize variables for the movie controlling
 readyMovieState = true;
+sessionStatusID = 0;
+
 setInterval(() => {
     if (readyMovieState) {
 
         readyMovieState = false;
-
+        
+        // Get the session status for checking play and pause status
         fetch(`${BACKEND_HOST}/movie/sessionStatus?sessionID=${sessionID}`, {
             method: "GET",
             headers: {
@@ -215,17 +224,22 @@ setInterval(() => {
             readyMovieState = true;
             if (json.status === 200) {
                 
-                if (json.sessionStatus.username != CURRENT_USER) {
-    
+                // Check if the session status ID is greater (meaning new) and check if its not from the local user
+                if (json.sessionStatus.username != CURRENT_USER && json.sessionStatus.id > sessionStatusID) {
+                    
+                    // Check if the user is not in the list of users that have already done the actions needed
                     let UserNotInList = false;
                     for (let i = 0; i < json.sessionStatus.doneList.length; i++) {
                         if (json.sessionStatus.doneList[i] != CURRENT_USER) {
                             UserNotInList = true;
                         }
                     }
+
                     /* console.log(`INT: ${movieControls.paused}`);
                     console.log(`INT 2: ${movieControls.playing}`);
-                    console.log(json.sessionStatus.playStatus) */
+                    console.log(json.sessionStatus.playStatus); */
+
+                    // Check what the play status of the movie session is in the session status
                     if (json.sessionStatus.playStatus === "pause" && !movieControls.paused) {
                         movieControls.pause();
                         movieControls.currentTime = json.sessionStatus.currentTime; 
@@ -235,6 +249,9 @@ setInterval(() => {
                         movieControls.currentTime = json.sessionStatus.currentTime; 
                         /* console.log("SERVER PLAY VIDEO"); */
                     }
+
+                    // Set the session status ID
+                    sessionStatusID = json.sessionStatus.id;
                 }
             } else {
                 console.log(json);
@@ -559,38 +576,40 @@ createMessage = (data) => {
 }
 
 alertMessage = (data, MessageStatus) => {
-
+    
     let id = data.id;
     let message = data.message;
     let username = data.username;
 
-    // Get the time since message
-    let m_timestamp = Math.round((new Date().getTime() - new Date(data.date+" UTC").getTime()) / 60000);
+    if (username != CURRENT_USER && (message != "Playing movie" || message != "Paused movie")) {
+        // Get the time since message
+        let m_timestamp = Math.round((new Date().getTime() - new Date(data.date+" UTC").getTime()) / 60000);
 
-    // Create the timestamps for the displayed messages
-    let since_time = ""
-    let date_timestamp = `${new Date(data.date+" UTC")}`; // Display the day the message was sent
-    if (m_timestamp < 60 && m_timestamp > 0) {
-        since_time = `${m_timestamp} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of minutes gone by
-    } else if ((m_timestamp / 60) > 0 && (m_timestamp / 60) < 25) {
-        since_time = `${Math.round(m_timestamp / 60 % 24)} hours ${m_timestamp % 60} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of hours and minutes gone by
-    } else if ((m_timestamp / 60) > 23) {				
-        since_time = `${date_timestamp.split(":")[0]}:${date_timestamp.split(":")[1]}`;
-    } else {
-        since_time = `Now - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display that the message was sent now
-    }
+        // Create the timestamps for the displayed messages
+        let since_time = ""
+        let date_timestamp = `${new Date(data.date+" UTC")}`; // Display the day the message was sent
+        if (m_timestamp < 60 && m_timestamp > 0) {
+            since_time = `${m_timestamp} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of minutes gone by
+        } else if ((m_timestamp / 60) > 0 && (m_timestamp / 60) < 25) {
+            since_time = `${Math.round(m_timestamp / 60 % 24)} hours ${m_timestamp % 60} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of hours and minutes gone by
+        } else if ((m_timestamp / 60) > 23) {				
+            since_time = `${date_timestamp.split(":")[0]}:${date_timestamp.split(":")[1]}`;
+        } else {
+            since_time = `Now - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display that the message was sent now
+        }
 
-    let html_template = document.createElement("div");
-    html_template.setAttribute("class", "col-xl-12 offset-xl-0 d-flex flex-column justify-content-start align-items-center alert-message");
-    html_template.setAttribute("id", `message-id-${id}`);
-    html_template.innerHTML = `<p class="text-break d-flex flex-column justify-content-start align-items-center">
-                                    <span class="message-span">${username} - ${message}<br /></span>
-                                    <span class="date-span">${since_time}</span>
-                                </p>`;
+        let html_template = document.createElement("div");
+        html_template.setAttribute("class", "col-xl-12 offset-xl-0 d-flex flex-column justify-content-start align-items-center alert-message");
+        html_template.setAttribute("id", `message-id-${id}`);
+        html_template.innerHTML = `<p class="text-break d-flex flex-column justify-content-start align-items-center">
+                                        <span class="message-span">${username} - ${message}<br /></span>
+                                        <span class="date-span">${since_time}</span>
+                                    </p>`;
 
-    if (MessageStatus === "loadMessage") {
-        document.querySelector(".hero-1-message-holder").prepend(html_template);
-    } else if (MessageStatus === "createMessage") {
-        document.querySelector(".hero-1-message-holder").append(html_template);
+        if (MessageStatus === "loadMessage") {
+            document.querySelector(".hero-1-message-holder").prepend(html_template);
+        } else if (MessageStatus === "createMessage") {
+            document.querySelector(".hero-1-message-holder").append(html_template);
+        }
     }
 }

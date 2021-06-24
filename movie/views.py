@@ -56,6 +56,7 @@ def createSession(request):
 
                 # Create a dictionary containing the sessions status
                 sessionData.sessionStatus = {
+                    "id": 0,
                     "username": request.user.username,
                     "playStatus": "pause",
                     "currentTime": 0,
@@ -136,8 +137,9 @@ def sessionStatus(request):
 
                 if request.user.username not in list_user:
                     list_user.append(request.user.username)
-                print(sessionData.sessionStatus)
+
                 resultData = {
+                    "id": sessionData.sessionStatus["id"],
                     "username": sessionData.sessionStatus["username"],
                     "playStatus": sessionData.sessionStatus["playStatus"], 
                     "currentTime": sessionData.sessionStatus["currentTime"],
@@ -161,11 +163,8 @@ def sessionStatus(request):
 
             try:
                 sessionData = MovieSessionModel.objects.get(sessionID=form.cleaned_data.get("sessionID"))
-                print()
-                print(form.cleaned_data.get("playStatus"))
-                print(form.cleaned_data.get("currentTime"))
-                print()
                 sessionData.sessionStatus = {
+                    "id": sessionData.sessionStatus["id"] + 1,
                     "username": request.user.username,
                     "playStatus": form.cleaned_data.get("playStatus"),
                     "currentTime": form.cleaned_data.get("currentTime"),
