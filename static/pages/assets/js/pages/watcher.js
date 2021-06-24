@@ -246,7 +246,7 @@ setInterval(() => {
 // Initialize variables for the chat/messagin
 let cursor = 0;
 let messages_list = []; // Hold all the IDs of the messages
-let latest_message_id = null;
+let latest_message_id = 0;
 let GoToPosition = false;
 
 // Fetch all the messages of the session
