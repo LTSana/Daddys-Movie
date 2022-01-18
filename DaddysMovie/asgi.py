@@ -17,7 +17,6 @@ import movie.routing
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DaddysMovie.settings')
 
 application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
         URLRouter(
             movie.routing.websocket_urlpatterns
