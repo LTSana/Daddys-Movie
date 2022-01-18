@@ -6,30 +6,26 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 """
 
 import os
-import django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DaddysMovie.settings")
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DaddysMovie.settings')
+import django
 django.setup()
 
-from channels.auth import AuthMiddlewareStack
-from channels.routing import ProtocolTypeRouter, URLRouter
+from django.core.management import call_command
+
+
 from django.core.asgi import get_asgi_application
-
-# Channel Security
-from channels.security.websocket import AllowedHostsOriginValidator
-
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack
 import movie.routing
 
-from channels.layers import get_channel_layer
-channel_layer = get_channel_layer()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DaddysMovie.settings')
 
 application = ProtocolTypeRouter({
-  "http": get_asgi_application(),
-  "websocket": AllowedHostsOriginValidator(
-        AuthMiddlewareStack(
-            URLRouter(
-                movie.routing.websocket_urlpatterns
-            )
+    "http": get_asgi_application(),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(
+            movie.routing.websocket_urlpatterns
         )
     ),
-}) 
+})
