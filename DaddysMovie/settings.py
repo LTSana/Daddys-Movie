@@ -137,7 +137,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DaddysMovie.wsgi.application'
-ASGI_APPLICATION = 'DaddysMovie.asgi.route_application'
+ASGI_APPLICATION = 'DaddysMovie.routing.application'
 
 # Channels
 CHANNEL_LAYERS = {
