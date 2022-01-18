@@ -5,9 +5,6 @@ const queryString = window.location.search;
 let URLParam = new URLSearchParams(queryString);
 const sessionID = URLParam.get("sessionID"); // Gets the user ID from the url parameters
 
-// For Movie controlling for user to user
-let movieControls = document.querySelector('#movie-player');
-
 // Check if the session ID is provided in the URL
 if (sessionID) {
     fetch(`${BACKEND_HOST}/movie/session?sessionID=${sessionID}`, {
@@ -16,12 +13,12 @@ if (sessionID) {
             //"Authorization": `${TOKEN.type} ${TOKEN.access}`,
         },
     }).then(res => res.json()).then(json => {
-    
+
         // Check response status
         if (json.status === 200) {
-    
+
             console.log(json);
-    
+
             // Remove the current video source
             document.querySelector("#movie-player > source").remove();
             // Add the source of the video
@@ -29,13 +26,13 @@ if (sessionID) {
             html_template.src = json.movie.source;
             html_template.type = "video/mp4";
             document.querySelector("#movie-player").append(html_template);
-    
+
             // Add the title of the video
             document.querySelector("#movie-title-holder").innerHTML = json.movie.title;
-            
+
             // Add the session ID to the session ID holder
             document.querySelector("#sessionID-input").value = sessionID;
-    
+
         } else {
             console.log(json);
             ALERT_MESSAGE("#movie-alert", json.message);
@@ -59,58 +56,24 @@ document.querySelector("#sessionID-input").onclick = () => {
     // Select the text
     copyText.select();
     copyText.setSelectionRange(0, 99999); // For mobile devices
-  
+
     // Copy the text
     document.execCommand("copy");
-  
+
     // Alert the user that the link was successfully copied
     ALERT_MESSAGE("#movie-alert", `Copied session ID ${sessionID} to your clipboard`);
 }
 
-// Used when video is buffering or user moves from one timeline to another
-/* movieControls.onwaiting = () => {
-    console.log("HEY, I'M WAITING!! SENDING ACTION");
-    if (incomingCommand != CURRENT_USER) {
-        websocketChat.send(JSON.stringify({
-            "action": "pause", // Send the action
-            "currentTime": movieControls.currentTime,
-            "command": "video_controls",
-        }));
-    } else {
-        incomingCommand = "";
-    }
-} */
+/*
+MOVIE CONTROLS START
+*/
 
-// Used when the video is paused
-/* movieControls.onpause = () => {
-    console.log("HEY, I'M PAUSED!  SENDING ACTION");
-    websocketChat.send(JSON.stringify({
-        "action": "pause", // Send the action
-        "currentTime": movieControls.currentTime,
-        "command": "video_controls",
-    }));
-}
-
-// Used when the video is played
-movieControls.onplay = () => {
-    console.log("HEY, I'M PLAYING! SENDING ACTION");
-    websocketChat.send(JSON.stringify({
-        "action": "play", // Send the action
-        "currentTime": movieControls.currentTime,
-        "command": "video_controls",
-    }));
-} */
-
-receivedAction = (data) => {
-    console.log(data+" - 888");
-    console.log(movieControls);
-    document.querySelector('#movie-player').pause()
-    movieControls.pause();
-}
+// For Movie controlling for user to user
+let movieControls = document.querySelector('#movie-player');
 
 // TODO (Need to figure out how to solve buffering issues)
 movieControls.onwaiting = () => {
-    console.log("Buffering...")
+    console.log("Buffering...");
 }
 
 movieControls.onpause = () => {
@@ -211,7 +174,7 @@ setInterval(() => {
     if (readyMovieState) {
 
         readyMovieState = false;
-        
+
         // Get the session status for checking play and pause status
         fetch(`${BACKEND_HOST}/movie/sessionStatus?sessionID=${sessionID}`, {
             method: "GET",
@@ -223,10 +186,10 @@ setInterval(() => {
         }).then(res => res.json()).then(json => {
             readyMovieState = true;
             if (json.status === 200) {
-                
+
                 // Check if the session status ID is greater (meaning new) and check if its not from the local user
                 if (json.sessionStatus.username != CURRENT_USER && json.sessionStatus.id > sessionStatusID) {
-                    
+
                     // Check if the user is not in the list of users that have already done the actions needed
                     let UserNotInList = false;
                     for (let i = 0; i < json.sessionStatus.doneList.length; i++) {
@@ -242,11 +205,11 @@ setInterval(() => {
                     // Check what the play status of the movie session is in the session status
                     if (json.sessionStatus.playStatus === "pause" && !movieControls.paused) {
                         movieControls.pause();
-                        movieControls.currentTime = json.sessionStatus.currentTime; 
+                        movieControls.currentTime = json.sessionStatus.currentTime;
                         /* console.log("SERVER PAUSE VIDEO"); */
                     } else if (json.sessionStatus.playStatus === "play" && movieControls.paused) {
                         movieControls.play();
-                        movieControls.currentTime = json.sessionStatus.currentTime; 
+                        movieControls.currentTime = json.sessionStatus.currentTime;
                         /* console.log("SERVER PLAY VIDEO"); */
                     }
 
@@ -259,6 +222,14 @@ setInterval(() => {
         });
     }
 }, 100);
+
+/*
+MOVIE CONTROLS END
+*/
+
+/*
+MESSAGEING CONTROLS START
+*/
 
 // Initialize variables for the chat/messagin
 let cursor = 0;
@@ -274,7 +245,7 @@ fetch(`${BACKEND_HOST}/message/fetch?sessionID=${sessionID}`, {
         //"Authorization": `${TOKEN.type} ${TOKEN.access}`,
     },
 }).then(res => res.json()).then(json => {
-    
+
     // Check the response status
     if (json.status === 200) {
         // Loop through all the messages
@@ -283,7 +254,7 @@ fetch(`${BACKEND_HOST}/message/fetch?sessionID=${sessionID}`, {
             messages_list.push(json.data.messages[i].id);
         }
 
-        // Get the latest message ID 
+        // Get the latest message ID
         if (json.data.messages.length > 0) {
             latest_message_id = json.data.messages[json.data.messages.length - 1].id;
         }
@@ -439,8 +410,6 @@ document.querySelector("#send-message-btn").onclick = (e) => {
 
     const messageInputDom = document.querySelector("#message-text-input");
     const message = messageInputDom.value;
-    
-    //TODO
 
     // Send the message to the backend
     fetch(`${BACKEND_HOST}/message/send`, {
@@ -474,7 +443,7 @@ document.querySelector("#send-message-btn").onclick = (e) => {
 
 // Display the loaded messages
 loadMessage = (data) => {
-    
+
     if (data.status === "message") {
         console.log(data);
         let id = data.id;
@@ -495,7 +464,7 @@ loadMessage = (data) => {
             since_time = `${m_timestamp} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of minutes gone by
         } else if ((m_timestamp / 60) > 0 && (m_timestamp / 60) < 25) {
             since_time = `${Math.round(m_timestamp / 60 % 24)} hours ${m_timestamp % 60} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of hours and minutes gone by
-        } else if ((m_timestamp / 60) > 23) {				
+        } else if ((m_timestamp / 60) > 23) {
             since_time = `${date_timestamp.split(":")[0]}:${date_timestamp.split(":")[1]}`;
         } else {
             since_time = `Now - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display that the message was sent now
@@ -546,7 +515,7 @@ createMessage = (data) => {
             since_time = `${m_timestamp} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of minutes gone by
         } else if ((m_timestamp / 60) > 0 && (m_timestamp / 60) < 25) {
             since_time = `${Math.round(m_timestamp / 60 % 24)} hours ${m_timestamp % 60} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of hours and minutes gone by
-        } else if ((m_timestamp / 60) > 23) {				
+        } else if ((m_timestamp / 60) > 23) {
             since_time = `${date_timestamp.split(":")[0]}:${date_timestamp.split(":")[1]}`;
         } else {
             since_time = `Now - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display that the message was sent now
@@ -576,7 +545,7 @@ createMessage = (data) => {
 }
 
 alertMessage = (data, MessageStatus) => {
-    
+
     let id = data.id;
     let message = data.message;
     let username = data.username;
@@ -592,7 +561,7 @@ alertMessage = (data, MessageStatus) => {
             since_time = `${m_timestamp} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of minutes gone by
         } else if ((m_timestamp / 60) > 0 && (m_timestamp / 60) < 25) {
             since_time = `${Math.round(m_timestamp / 60 % 24)} hours ${m_timestamp % 60} minutes ago - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display the amount of hours and minutes gone by
-        } else if ((m_timestamp / 60) > 23) {				
+        } else if ((m_timestamp / 60) > 23) {
             since_time = `${date_timestamp.split(":")[0]}:${date_timestamp.split(":")[1]}`;
         } else {
             since_time = `Now - ${date_timestamp.split(" ")[4].split(":")[0]+":"+date_timestamp.split(" ")[4].split(":")[1]}`; // Display that the message was sent now
@@ -613,3 +582,7 @@ alertMessage = (data, MessageStatus) => {
         }
     }
 }
+
+/*
+MESSAGEING CONTROLS END
+*/

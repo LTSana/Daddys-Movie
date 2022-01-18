@@ -37,8 +37,8 @@ else:
 DEBUG = True if os.getenv('DEBUG') == "True" else False
 
 ALLOWED_HOSTS = [
-    '192.168.100.2', 
-    '127.0.0.1', 
+    '192.168.100.2',
+    '127.0.0.1',
     'localhost',
     'daddysmovie.herokuapp.com',
     ]
@@ -56,7 +56,7 @@ CSRF_FAILURE_VIEW = 'pages.views.csrf_failure'
 # Set this to True to avoid transmitting the session cookie over HTTP accidentally.
 SESSION_COOKIE_SECURE = True
 
-# Enabling persistent database connections can result in a nice speed-up when connecting to 
+# Enabling persistent database connections can result in a nice speed-up when connecting to
 # the database accounts for a significant part of the request processing time.
 CONN_MAX_AGE = 500 # Integer is seconds (60 - seconds, 1 - second and so on)
 
@@ -141,9 +141,12 @@ ASGI_APPLICATION = 'DaddysMovie.asgi.application'
 
 # Channels
 CHANNEL_LAYERS = {
-    'default': {
-        #'BACKEND': 'channels_redis.core.RedisChannelLayer', # USE IN PRODUCTION
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_TLS_URL', 'redis://localhost:6379') if not DEBUG and os.environ.get("REDIS_TLS_URL", None) else os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+        # "ROUTING": "movie.routing.channel_routing",
     },
 }
 
@@ -204,7 +207,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # This is the static files folder name which you created in django project root folder.
-# This is different from above STATIC_URL. 
+# This is different from above STATIC_URL.
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]

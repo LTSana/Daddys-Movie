@@ -1,3 +1,4 @@
+
 /* JavaSrcipt for all pages */
 
 // Get CSRF
@@ -21,7 +22,7 @@ const CSRFTOKEN = getCookie("csrftoken");
 // The backend that we are going to be connecting our APIs
 const BACKEND_HOST = ``;
 let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-const WEBSCKET_HOST = `${ws_scheme}:`;
+const WEBSCKET_HOST = `${ws_scheme}://${window.location.host}`
 const TOKEN = JSON.parse(localStorage.getItem("token"));
 /* if (localStorage.getItem("token") && localStorage.getItem("token") != "undefined") {
 	TOKEN = JSON.parse(localStorage.getItem("token"));
@@ -31,7 +32,6 @@ const TOKEN = JSON.parse(localStorage.getItem("token"));
 
 // User information
 let CURRENT_USER = null;
-let CURRENT_USER_ID = null;
 
 // Check if the user is logged in by verifying the access token
 // If the access token has expired refresh the token
@@ -47,11 +47,11 @@ fetch(`${BACKEND_HOST}/core/currentUser`, {
 	if (json.status === 200) {
 
 		CURRENT_USER = json.data.username;
-		CURRENT_USER_ID = json.data.userID;
+		console.log(json);
 	} else {
 
 		// Attempt to refresh the access token
-		fetch(`${BACKEND_HOST}/token-refresh/`, {
+		/* fetch(`${BACKEND_HOST}/token-refresh/`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -60,25 +60,21 @@ fetch(`${BACKEND_HOST}/core/currentUser`, {
 				"refresh": TOKEN.refresh,
 			}),
 		}).then(res => res.json()).then(json => {
-
 			// Check the response status
 			if (json.access) {
 				
 				// Replace the access token we have now with the new one
 				TOKEN.access = json.access;
-
 				// Update the local storage token
 				localStorage.setItem("token", JSON.stringify(TOKEN));
-
 				// Reload the page
 				location.reload()
 			} else {
-
 				// Remove the token from the local storage if the refresh token is also expired
 				localStorage.removeItem("token");
 				TOKEN = {"type": "", "access": "", "refresh": "", "expire": 0};
 			}
-		});
+		}); */
 	}
 });
 

@@ -77,7 +77,7 @@ def loginAPI(request):
 
             # Check if reCAPTCHA passed
             if result_json.get("success"):
-                
+
                 # Authenticate the user
                 user = authenticate(
                     request,
@@ -102,7 +102,7 @@ def loginAPI(request):
                         token["refresh"] = str(payload)
                         token["type"] = "Bearer"
                         token["expire"] = api_settings.ACCESS_TOKEN_LIFETIME.total_seconds()
-                    
+
                     return JsonResponse({"status": 200, "user":{"username": user.username, "id": user.pk}, "token": token}, status=200)
                 else:
                     # Tell the user that the password or username is wrong
@@ -147,7 +147,7 @@ def movies(request):
 
         # Check if the form is valid
         if form.is_valid():
-            
+
             # Fetch the movies
             if form.cleaned_data.get("action") == "fetch":
 
@@ -155,7 +155,7 @@ def movies(request):
                     if form.cleaned_data.get("movieID"):
                         # Get the movies by ID(Primary Key)
                         movie = MovieModel.objects.get(pk=form.cleaned_data.get("movieID"))
-                        
+
                         movieJSON = {
                             "id": movie.pk,
                             "title": movie.title,
@@ -170,7 +170,7 @@ def movies(request):
                     else:
                         # Get all the movies
                         movies = MovieModel.objects.all()
-                    
+
                     # Make a list of all the movies to send through JSON
                     movie_list = []
                     for movie in movies:
@@ -267,7 +267,7 @@ def movies(request):
                         return JsonResponse({"status": 401, "message": "Cover picture is too big! Cover picture must be less than 9Mbs(megabytes)."}, status=401)
                 else:
                     return JsonResponse({"status": 401, "message": "Picture is the wrong format! Please only upload PNG, JPEG or JPG."}, status=401)
-            
+
             # Delete movies
             elif form.cleaned_data.get("action") == "delete":
 
