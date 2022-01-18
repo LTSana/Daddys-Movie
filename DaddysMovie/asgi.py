@@ -14,9 +14,9 @@ from channels.routing import ProtocolTypeRouter, URLRouter, get_default_applicat
 from channels.auth import AuthMiddlewareStack
 import movie.routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DaddysMovie.settings')
+application = get_default_application()
 
-application = ProtocolTypeRouter({
+route_application = ProtocolTypeRouter({
     "websocket": AuthMiddlewareStack(
         URLRouter(
             movie.routing.websocket_urlpatterns
