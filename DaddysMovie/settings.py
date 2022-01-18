@@ -137,7 +137,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DaddysMovie.wsgi.application'
-# ASGI_APPLICATION = 'DaddysMovie.routing.application'
+ASGI_APPLICATION = 'DaddysMovie.asgi.application'
 
 # Channels
 CHANNEL_LAYERS = {
@@ -146,7 +146,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
-        "ROUTING": "movie.routing.websocket_urlpatterns",
+        # "ROUTING": "movie.routing.channel_routing",
     },
 }
 
