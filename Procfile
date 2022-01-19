@@ -1,1 +1,1 @@
-web: python manage.py runserver
+web: python manage.py runserver --port $PORT --bind 0.0.0.0
