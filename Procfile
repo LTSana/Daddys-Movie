@@ -1,1 +1,1 @@
-web: python manage.py runserver 0.0.0.0:$PORT
+web: daphne DaddysMovie.asgi:application --port $PORT --bind 0.0.0.0 -v2
