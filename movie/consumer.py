@@ -392,6 +392,9 @@ class MovieStatusConsumer(WebsocketConsumer):
         # Validate the room UUID
         form =  MovieSessionForm({"sessionID": self.scope['url_route']['kwargs']['sessionID']})
 
+        print(f"FORM: {form.is_valid()}")
+        print("LOL")
+
         # Check if the form is valid
         if form.is_valid():
 
