@@ -34,6 +34,8 @@ fetch(`${BACKEND_HOST}/movie/session?sessionID=${sessionID}`, {
 		// Add the title of the video
 		document.querySelector("#movie-title-holder").innerHTML = json.movie.title;
 
+		// Add the session ID to the session ID holder
+		document.querySelector("#sessionID-input").value = `${BACKEND_HOST}/movie/session?sessionID=${sessionID}`;
 
 	} else {
 		console.log(json);
@@ -52,6 +54,7 @@ websocketChat.timeoutInterval = 5000;
 websocketChat.onopen = (e) => {
 	/* fetchMessages(_cursor); */
 	pauseMovie(e);
+	websocketChat.accept();
 };
 
 pauseMovie = (e) => {
