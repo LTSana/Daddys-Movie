@@ -146,7 +146,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379') if DEBUG else os.environ.get('REDIS_TLS_URL', 'redis://localhost:6379')],
         },
-        "ROUTING": "movie.routing.channel_routing",
+        # "ROUTING": "movie.routing.channel_routing",
     },
 }
 
