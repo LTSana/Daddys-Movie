@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 import dotenv
+import re
 
 from pathlib import Path
 from datetime import timedelta
@@ -146,7 +147,11 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
-        # "ROUTING": "movie.routing.channel_routing",
+        "channel_capacity": {
+            "http.request": 200,
+            "http.response!*": 10,
+            re.compile(r"^websocket.send\!.+"): 20,
+        },
     },
 }
 
