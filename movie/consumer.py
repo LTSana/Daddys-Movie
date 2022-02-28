@@ -353,6 +353,10 @@ class ChatConsumer(WebsocketConsumer):
     # Receive message from WebSocket
     def receive(self, text_data):
         data = json.loads(text_data)
+
+        print("?")
+        print(data)
+        
         #message = data['message']
         if data["command"]:
             self.commands[data["command"]](self, data)
