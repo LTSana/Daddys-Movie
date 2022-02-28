@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import dotenv
 import re
+import ssl
 
 from pathlib import Path
 from datetime import timedelta
@@ -140,12 +141,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'DaddysMovie.wsgi.application'
 ASGI_APPLICATION = 'DaddysMovie.asgi.application'
 
+ssl_context = ssl.SSLContext()
+ssl_context.check_hostname = False
+
+heroku_redis_ssl_host = {
+    'address': os.environ.get('REDIS_TLS_URL', 'redis://localhost:6379'), # The 'rediss' schema denotes a SSL connection.
+    'ssl': ssl_context
+}
+
 # Channels
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get('REDIS_TLS_URL', 'redis://localhost:6379')],
+            "hosts": (heroku_redis_ssl_host,)
         },
     },
 }
