@@ -266,7 +266,7 @@ class ChatConsumer(WebsocketConsumer):
         "video_controls": videoControl,
     }
 
-    def connect(self):
+    async def connect(self):
         # Used for Authentication
 
         #print(jwt.decode(parse.parse_qs(self.scope["query_string"].decode("UTF-8"))["token"][0], settings.SECRET_KEY, algorithms=api_settings.ALGORITHM))
@@ -292,7 +292,7 @@ class ChatConsumer(WebsocketConsumer):
 
             print("POINT 1")
             # Join room group
-            self.channel_layer.group_add(
+            await self.channel_layer.group_add(
                 self.room_group_name,
                 self.channel_name
             )
