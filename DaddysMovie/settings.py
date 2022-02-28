@@ -143,16 +143,8 @@ ASGI_APPLICATION = 'DaddysMovie.asgi.application'
 # Channels
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [os.environ.get('REDIS__URL', 'redis://localhost:6379')],
-        },
-        "channel_capacity": {
-            "http.request": 200,
-            "http.response!*": 10,
-            re.compile(r"^websocket.send\!.+"): 20,
-        },
-    },
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
 
 # Database
