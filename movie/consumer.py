@@ -295,7 +295,10 @@ class ChatConsumer(WebsocketConsumer):
             )
 
             print("POINT 2")
-            self.accept()
+            try:
+                self.accept()
+            except:
+                print("BROKE")
 
             print(f"AFTER")
 
