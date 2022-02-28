@@ -297,12 +297,6 @@ class ChatConsumer(WebsocketConsumer):
                 self.channel_name
             )
 
-            print("POINT 2")
-            try:
-                self.accept()
-            except:
-                print("BROKE")
-
             print(f"AFTER")
 
             # Check if the scope user session is being used
