@@ -283,11 +283,17 @@ class ChatConsumer(WebsocketConsumer):
             self.room_name = self.scope['url_route']['kwargs']['sessionID']
             self.room_group_name = 'chat_%s' % self.room_name
 
+            print(f"BEFORE")
+
+            print(self.scope["user"])
+
             # Join room group
             async_to_sync(self.channel_layer.group_add)(
                 self.room_group_name,
                 self.channel_name
             )
+
+            print(f"AFTER")
 
             # Check if the scope user session is being used
             try:
