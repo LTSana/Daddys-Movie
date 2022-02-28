@@ -274,6 +274,9 @@ class ChatConsumer(WebsocketConsumer):
         # Validate the room UUID
         form =  MovieSessionForm({"sessionID": self.scope['url_route']['kwargs']['sessionID']})
 
+        print(f"FORM: {form.is_valid()}")
+        print("LOL")
+        
         # Check if the form is valid
         if form.is_valid():
 
@@ -393,9 +396,6 @@ class MovieStatusConsumer(WebsocketConsumer):
         # Validate the room UUID
         form =  MovieSessionForm({"sessionID": self.scope['url_route']['kwargs']['sessionID']})
 
-        print(f"FORM: {form.is_valid()}")
-        print("LOL")
-
         # Check if the form is valid
         if form.is_valid():
 
@@ -453,7 +453,6 @@ class MovieStatusConsumer(WebsocketConsumer):
 
     def disconnect(self, close_code):
         # Leave room group
-        print("LOL DISCONNECTED!")
         self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
