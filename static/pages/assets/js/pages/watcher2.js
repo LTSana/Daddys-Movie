@@ -44,7 +44,7 @@ fetch(`${BACKEND_HOST}/movie/session?sessionID=${sessionID}`, {
 });
 
 const websocketChat = new ReconnectingWebSocket(
-	`${WEBSCKET_HOST}/ws/chat/${sessionID}/?token=${TOKEN.access}`
+	`${WEBSCKET_HOST}/ws/chat/${sessionID}/`
 );
 
 // Waiting set milliseconds to reconnect
