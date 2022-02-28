@@ -292,7 +292,7 @@ class ChatConsumer(WebsocketConsumer):
 
             print("POINT 1")
             # Join room group
-            async_to_sync(self.channel_layer.group_add)(
+            self.channel_layer.group_add(
                 self.room_group_name,
                 self.channel_name
             )
