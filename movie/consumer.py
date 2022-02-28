@@ -288,6 +288,7 @@ class ChatConsumer(WebsocketConsumer):
             print(self.scope["user"])
             print(self.scope['url_route']['kwargs']['sessionID'])
             print('chat_%s' % self.room_name)
+            print(self.channel_name)
 
             print("POINT 1")
             # Join room group
