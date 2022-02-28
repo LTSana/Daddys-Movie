@@ -54,7 +54,6 @@ websocketChat.timeoutInterval = 5000;
 websocketChat.onopen = (e) => {
 	/* fetchMessages(_cursor); */
 	pauseMovie(e);
-	websocketChat.accept();
 };
 
 pauseMovie = (e) => {
