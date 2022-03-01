@@ -149,15 +149,24 @@ heroku_redis_ssl_host = {
     'ssl': ssl_context
 }
 
-# Channels
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": (heroku_redis_ssl_host,)
+# Configurations for Channels if redis is available
+if os.getenv("REDIS_AVAILABLE", "False") == "True":
+
+    # RECOMMENDED USE REDIS
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": (heroku_redis_ssl_host,)
+            },
         },
-    },
-}
+    }
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer"
+        }
+    }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
