@@ -345,10 +345,10 @@ class ChatConsumer(WebsocketConsumer):
     def disconnect(self, close_code):
         # Leave room group
         print("LOL DISCONNECTED!")
-        # async_to_sync(self.channel_layer.group_discard)(
-        #     self.room_group_name,
-        #     self.channel_name
-        # )
+        async_to_sync(self.channel_layer.group_discard)(
+            self.room_group_name,
+            self.channel_name
+        )
 
     # Receive message from WebSocket
     def receive(self, text_data):
