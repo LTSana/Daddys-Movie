@@ -260,9 +260,6 @@ class ChatConsumer(WebsocketConsumer):
                 "currentTime": "",
             }
 
-        print("Sending...")
-        print(movieControlData)
-
         return self.send_chat_message(movieControlData)
 
     commands = {
@@ -273,13 +270,8 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         # Used for Authentication
 
-        #print(jwt.decode(parse.parse_qs(self.scope["query_string"].decode("UTF-8"))["token"][0], settings.SECRET_KEY, algorithms=api_settings.ALGORITHM))
-
         # Validate the room UUID
         form =  MovieSessionForm({"sessionID": self.scope['url_route']['kwargs']['sessionID']})
-
-        print(f"FORM: {form.is_valid()}")
-        print("LOL")
         
         # Check if the form is valid
         if form.is_valid():
@@ -287,21 +279,11 @@ class ChatConsumer(WebsocketConsumer):
             self.room_name = self.scope['url_route']['kwargs']['sessionID']
             self.room_group_name = 'chat_%s' % self.room_name
 
-            print(f"BEFORE")
-
-            print(self.scope["user"])
-            print(self.scope['url_route']['kwargs']['sessionID'])
-            print('chat_%s' % self.room_name)
-            print(self.channel_name)
-
-            print("POINT 1")
             # Join room group
             async_to_sync(self.channel_layer.group_add)(
                 self.room_group_name,
                 self.channel_name
             )
-
-            print(f"AFTER")
 
             # Check if the scope user session is being used
             try:
@@ -348,7 +330,6 @@ class ChatConsumer(WebsocketConsumer):
 
     def disconnect(self, close_code):
         # Leave room group
-        print("LOL DISCONNECTED!")
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,
             self.channel_name
@@ -358,16 +339,12 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self, text_data):
         data = json.loads(text_data)
 
-        print("?")
-        print(data)
-
         #message = data['message']
         if data["command"]:
             self.commands[data["command"]](self, data)
 
 
     def send_chat_message(self, message):
-        print(f"ROOM NAME: {self.room_group_name}")
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
