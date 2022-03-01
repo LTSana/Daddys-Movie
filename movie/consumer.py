@@ -368,6 +368,11 @@ class ChatConsumer(WebsocketConsumer):
 
     def send_chat_message(self, message):
         print(f"ROOM NAME: {self.room_group_name}")
+        # Send message to WebSocket
+        self.send(text_data=json.dumps({
+            'message': message
+        }))
+        
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
