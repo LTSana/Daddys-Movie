@@ -14,7 +14,7 @@ Add the following to your resources:
 2. Heroku Redis (You will need to verify your account by adding a valid bank card, if you do not want simple keep `REDIS_AVAILABLE = False` to avoid using REDIS configurations.)
 
 The environment variables:
-```
+```.ENV
 SECRET_KEY = ******
 DEBUG = False
 
