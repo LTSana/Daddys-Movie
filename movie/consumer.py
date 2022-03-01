@@ -259,6 +259,10 @@ class ChatConsumer(WebsocketConsumer):
                 "username": "",
                 "currentTime": "",
             }
+
+        print("Sending...")
+        print(movieControlData)
+
         return self.send_chat_message(movieControlData)
 
     commands = {
@@ -363,6 +367,7 @@ class ChatConsumer(WebsocketConsumer):
 
 
     def send_chat_message(self, message):
+        print(f"ROOM NAME: {self.room_group_name}")
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
