@@ -248,9 +248,14 @@ def movies(request):
                         # generating the content of the new image
                         file = ContentFile(image_io.getvalue(), name=f"{_filename}.{_extension}" )
 
+                        # Check if the movie link is from Dropbox
+                        movie_link = form.cleaned_data.get("link")
+                        if "dropbox.com" in movie_link:
+                            movie_link = str(movie_link).replace("?dl=0", "?raw=1")
+
                         movieData = MovieModel.objects.create(
                             title=form.cleaned_data.get("title"),
-                            source=form.cleaned_data.get("link"),
+                            source=movie_link,
                             coverPicture=file,
                         )
                         movieData.save()
