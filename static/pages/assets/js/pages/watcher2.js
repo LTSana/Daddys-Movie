@@ -35,7 +35,7 @@ fetch(`${BACKEND_HOST}/movie/session?sessionID=${sessionID}`, {
 		document.querySelector("#movie-title-holder").innerHTML = json.movie.title;
 
 		// Add the session ID to the session ID holder
-		document.querySelector("#sessionID-input").value = `${BACKEND_HOST}/movie/session?sessionID=${sessionID}`;
+		document.querySelector("#sessionID-input").value = location.href;
 
 	} else {
 		console.log(json);
