@@ -13,6 +13,7 @@ class MovieModel(models.Model):
 
 	source = models.URLField(
 		null=False,
+		max_length=900000,
 		help_text="This is the field for the location of the movie. Must be a URL",
 	)
 
